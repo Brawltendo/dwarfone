@@ -366,10 +366,20 @@ namespace dwarfone
                                         fmt_str += "FMT_ET: " + fmt_str_out.Substring(8) + ", ";
                                         break;
                                     case (int)Fmt.FMT_FT_C_C:
-                                        ushort fmt_ft = ELF.ReadUInt16(elf_data, elf.GetEndian());
-                                        uint lo = ELF.ReadUInt32(elf_data, elf.GetEndian());
-                                        uint hi = ELF.ReadUInt32(elf_data, elf.GetEndian());
-                                        fmt_str += Enum.GetName(typeof(Ft), fmt_ft) + "[" + lo + ":" + hi + "], ";
+                                        {
+                                            ushort fmt_ft = ELF.ReadUInt16(elf_data, elf.GetEndian());
+                                            uint lo = ELF.ReadUInt32(elf_data, elf.GetEndian());
+                                            uint hi = ELF.ReadUInt32(elf_data, elf.GetEndian());
+                                            fmt_str += Enum.GetName(typeof(Ft), fmt_ft) + "[" + lo + ":" + hi + "], ";
+                                        }
+                                        break;
+                                    case (int)Fmt.FMT_FT_C_X:
+                                        {
+                                            ushort fmt_ft = ELF.ReadUInt16(elf_data, elf.GetEndian());
+                                            uint lo = ELF.ReadUInt32(elf_data, elf.GetEndian());
+                                            ELF.ReadUInt16(elf_data, elf.GetEndian());
+                                            fmt_str += Enum.GetName(typeof(Ft), fmt_ft) + "[" + lo + ":" + lo + "], ";
+                                        }
                                         break;
                                     default:
                                         elf_data.ReadByte();
